@@ -9,7 +9,7 @@
 
 ## Install requirements.txt
 1. Open cmd or any terminal
-2. Locate your *requirements.txt* file using cd command <!-- cd file_location_path -->
+2. Locate your *requirements.txt* file using cd command  [cd file_location_path]
 3. Run the command = `pip install -r requirements.txt`
 
 You setup is done now open main.py, run it and open http://127.0.0.1:5000
