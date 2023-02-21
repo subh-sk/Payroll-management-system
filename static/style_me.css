@@ -1,0 +1,148 @@
+body{
+    background-image:url('2.jpg');
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position-y:100px;
+  
+}
+#btSubmit:hover{
+  color: tomato;background-color: white;
+}
+header
+{
+    text-align: center;
+
+    background-image: linear-gradient(to bottom right,  red,yellow);
+    width: 101%;
+    margin-left: -8px;
+    margin-top: -10px;
+    
+    
+}
+
+.news-list{
+    background-color: rgb(119, 113, 97);
+    
+}
+.news-list a:hover{
+height: 27px;    
+}
+
+a:hover, .login_btn:hover{
+   color:rgb(47, 0, 255);
+   background-color: rgb(185, 185, 185); 
+}
+.active{
+    background-color:#ccc;
+    color: black;
+}
+.form{
+    padding: 0 50px;
+    /* padding-top: -40px; */
+    border: 1px solid #ccc;
+    margin: 20px 20% 0 20%;
+    background-color:rgb(192, 192, 192);
+    box-shadow: 0 0 10px 6px ;
+}
+.new_account{
+    background-color: tomato;
+    position: relative;
+    top: -58px;
+    /* align-items: center; */
+    left:430px;
+    padding: 13px 300px;
+    color: aliceblue;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+hr{
+    border: 1px solid #2a7e09;
+    margin-bottom: 25px;
+}
+input[type=text],input[type=password],input[type=email],input[type="number"] {
+    width:100%;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+input[type=date]{
+  text-align: center;
+  float: center;
+}
+input[name=cpass]{
+    margin-bottom: -20px;
+}
+input[type=submit]{
+    background-color: tomato;
+    color: white;
+    padding: 14px;
+    margin: -20px 0px 8px 0;
+    border: none;
+    /* cursor: pointer; */
+    width: 101%;
+    opacity: 0.9;
+    font-weight: bold;
+    
+ }
+ .contain{
+    padding: 50px;
+    border: 1px solid #ccc;
+    margin: 50px 20% 30px 20%;
+    background-color:rgb(192, 192, 192);
+}
+
+ .passreq{
+margin-top: -10px;
+font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.forget_account{
+    position: relative;
+    top: -120px;
+    left:375px;
+    color: red;
+    /* text-decoration: none; */
+    font-weight: bold;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding-right: 50px;
+    width: 100%;
+    background-color: #f1f1f1;
+    border: 2px solid rgb(51, 141, 6);
+  }
+  
+  li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  li{
+    text-align: center;
+    border-bottom: 1px solid rgb(51, 141, 6);
+    margin-right: -15px;
+  }
+  
+  li:last-child {
+    border-bottom: none;
+  }
+  
+  li a.active {
+    /* background-color: #f06318; */
+    color: rgb(229, 17, 17);
+  }
+  
+  li a:hover:not(.active) {
+    background-color: #e68957;
+    color: rgb(112, 18, 227);
+  }
+  .navbar-toggler:hover{
+    background-color: tomato;
+  }

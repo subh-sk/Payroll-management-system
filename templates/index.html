@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>LOG IN</title>
+        <link rel="stylesheet" href="../static/style_me.css">
+        <link  href="{{url_for('static',filename='style_me.css')}}" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    </head>
+<body>
+    <header>
+        <img src="../static/plogo.png ">
+    </header>
+    <form action="/login" class="login_form" method="post">
+        <div class="form">
+            <h1 style="text-align: center;color: rgb(235, 108, 18);font-family:'Cooper Black';">LOGIN</h1>
+            <input type="email" name="email" id="login_email" placeholder="E-mail" required>
+            <input type="password" name="password" id="login_password" placeholder="Password" required>
+            <input type="radio" name="login_type" value="Admin">
+            <label for="login_type">Admin</label>
+            <input type="radio" name="login_type" value="Employee" required>
+            <label for="login_type">Employee</label>
+            <input type="submit" class="login_btn" name="submit" onclick="alert_msg()" value="Login" style="margin-top: 10px; font-size: large;cursor: pointer;">
+            <br><br><hr style="margin-bottom: 95px;">
+            
+        </div>
+    </form>
+
+    <a class="new_account" href="sign_up.html">SignUp</a>
+    <a class="forget_account" href="forgot_account.html">Forgot Password</a>
+
+  
+</body>
+</html>

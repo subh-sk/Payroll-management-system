@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style_me.css">
+    <link  href="{{url_for('static',filename='style_me.css')}}" rel="stylesheet">
+    <title>Forgot Account</title>
+</head>
+<body>
+    <header>
+        <img src="../static/plogo.png ">
+    </header>
+    <form action="/login_again" class="login_form" method="post">
+        <div class="form">
+            <h1 style="text-align: center;color: rgb(235, 108, 18);font-family:'Cooper Black';">NEW PASSWORD</h1>
+            <label for="fname" ><b>OTP (sent on your E-mail) : </b></label>
+            <input type="number" name="OTP" id="fnname" placeholder="Enter OTP" required>
+            <label for="pass"><b>New Password: </b></label>
+            <input type="password" name="pass" id="pass" onkeyup="check();"  placeholder=" New Password" required minlength="4">
+            <p class="passreq">minium 4 digit required</p>
+            <label for="cpass"><b>Confirm Password : </b></label>
+            <input type="password" name="cpass" id="cpass" onkeyup="check();" placeholder="Confirm Password" required minlength="4">
+            <span id="message" style="font-family: Georgia, 'Times New Roman', Times, serif;"></span><br><br><br>
+            <input type="submit" id="btSubmit" value="New Password" class="file_submit" disabled>
+        </div>
+    </form>
+
+    <script>
+        function check() {
+           var bt = document.getElementById('btSubmit');
+           if (document.getElementById("pass").value == document.getElementById("cpass").value) 
+           {
+             bt.disabled=false
+             document.getElementById("btSubmit").style.cssText='background:#f06318;cursor: pointer;'
+             document.getElementById("message").style.cssText='color:green; position:relative;top:13px;font-weight:bold;';
+             document.getElementById("message").innerHTML = " password matching";
+           } else {
+             bt.disabled=true
+             document.getElementById("btSubmit").style.cssText='background:#e68957;'
+             document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
+             document.getElementById("message").innerHTML = "password not matching";
+           }
+         }
+       </script>
+</body>
+</html>

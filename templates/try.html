@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<body>
+   <form id="details">
+      FirstName:
+         <label><input type="text" id="firstName" /> </label>
+         <br>
+      LastName:
+         <label><input type="text" id="lastName" /> </label>
+         <br>
+      <input type="submit">
+   </form>
+</body>
+<script>
+   const formDetails = document.getElementById("details");
+   formDetails.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      var fName = document.getElementById("firstName").value;
+      var lName = document.getElementById("lastName").value;
+      console.log("First Name=" + fName);
+      console.log("Last Name=" + lName);
+   })
+</script> 
+</html>
