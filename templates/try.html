@@ -1,32 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        .custom-alert {
+        overflow:visible;
+          position: fixed;
+          left: 50%;
+            top: 7%;
+          transform: translate(-50%, -50%);
+          padding: 10px;
+          z-index: 999;
+          text-align: center;
+          width: 20%;
+          max-width: 400px;
+          transition: opacity 0.3s ease-in-out;
+          animation: showAlert 0.3s forwards;
+          background: #000;
+          border: 5px solid transparent;
+          border-radius: 5px;
+          background-clip: padding-box;
+          background-image: linear-gradient(120deg, #f08616 0%, #f5576c 100%);
+          background-size: 300% 300%;
+          animation: gradient 3s ease infinite;
+          border-radius: 20px;
+        }
+        
+        @keyframes showAlert {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
+        .custom-alert-content {
+          background: #1c1b1b;
+          background-image: radial-gradient(rgba(255, 255, 255, 0.1) 2px, transparent 2px), radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px);
+          background-position: 0 0, 25px 25px;
+          background-size: 50px 50px;
+          border-radius: 5px;
+          padding: 20px;
+          font-family: 'Roboto', sans-serif;
+        }
+        
+        .custom-alert-text {
+          display: block;
+          margin-bottom: 15px;
+          color: #fff;
+          font-weight: bold;
+        }
+        
+        .custom-alert-close {
+          cursor: pointer;
+          background-color: #e3932a;
+          border: 1px solid #f5576c;
+          padding: 5px 20px;
+          border-radius: 3px;
+          color: #000;
+          font-weight:800;
+          transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .custom-alert-close:hover {
+          background-color: #f5576c;
+          color: #fff;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 998;
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+                    
+    </style>
 </head>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <body>
-   <form id="details">
-      FirstName:
-         <label><input type="text" id="firstName" /> </label>
-         <br>
-      LastName:
-         <label><input type="text" id="lastName" /> </label>
-         <br>
-      <input type="submit">
-   </form>
+    <div id="overlay" class="overlay">
+        <input type="text" placeholder="name">
+        <input type="email" placeholder="email">
+        <div id="customAlert" class="custom-alert">
+            <div class="custom-alert-content">
+                <span class="custom-alert-text">Wrong OTP</span>
+                <button class="custom-alert-close" onclick="closeAlert()">OK</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+
+        function closeAlert() {
+            var customAlert = document.getElementById("customAlert");
+            customAlert.style.opacity = "0";
+            setTimeout(function() {
+                customAlert.style.display = "none";
+            }, 300);
+        }
+        document.body.classList.add("no-scroll" ); 
+    </script>
 </body>
-<script>
-   const formDetails = document.getElementById("details");
-   formDetails.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-      var fName = document.getElementById("firstName").value;
-      var lName = document.getElementById("lastName").value;
-      console.log("First Name=" + fName);
-      console.log("Last Name=" + lName);
-   })
-</script> 
 </html>

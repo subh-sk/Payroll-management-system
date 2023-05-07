@@ -9,7 +9,12 @@
 
 ## Install requirements.txt
 1. Open cmd or any terminal
-2. Locate your *requirements.txt* file using cd command  [cd file_location_path]
+2. Locate your *requirements.txt* file using cd command [cd file_location_path]
 3. Run the command = `pip install -r requirements.txt`
+
+## Configure SMTP 
+- provide your email and app password in main.py (otp_send function) 
+
+>[you will find your app password here](https://myaccount.google.com/apppasswords)
 
 You setup is done now open main.py, run it and open http://127.0.0.1:5000

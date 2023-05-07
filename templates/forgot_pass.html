@@ -23,26 +23,76 @@
             <label for="cpass"><b>Confirm Password : </b></label>
             <input type="password" name="cpass" id="cpass" onkeyup="check();" placeholder="Confirm Password" required minlength="4">
             <span id="message" style="font-family: Georgia, 'Times New Roman', Times, serif;"></span><br><br><br>
-            <input type="submit" id="btSubmit" value="New Password" class="file_submit" disabled>
+            <input type="submit" id="btSubmit" class="btn" value="New Password" class="btn" onclick="alert_msg()" disabled>
         </div>
     </form>
+   
 
-    <script>
-        function check() {
-           var bt = document.getElementById('btSubmit');
-           if (document.getElementById("pass").value == document.getElementById("cpass").value) 
-           {
-             bt.disabled=false
-             document.getElementById("btSubmit").style.cssText='background:#f06318;cursor: pointer;'
-             document.getElementById("message").style.cssText='color:green; position:relative;top:13px;font-weight:bold;';
-             document.getElementById("message").innerHTML = " password matching";
-           } else {
-             bt.disabled=true
-             document.getElementById("btSubmit").style.cssText='background:#e68957;'
-             document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
-             document.getElementById("message").innerHTML = "password not matching";
-           }
-         }
-       </script>
-</body>
+
+      {% if show_otp %}
+      <div id="customAlert" class="custom-alert">
+          <div class="custom-alert-content">
+            <span class="custom-alert-text">Wrong OTP</span>
+            <button class="custom-alert-close" onclick="closeAlert1()">OK</button>
+          </div>
+        </div>
+        {% endif %}
+
+        
+        <script>
+          function check() {
+            var bt = document.getElementById('btSubmit');
+            const passValue = document.getElementById("pass").value.trim(); 
+            if (document.getElementById("pass").value == document.getElementById("cpass").value )
+            {
+              if(passValue.length >=4){
+                bt.disabled=false
+                bt.value="SIGN UP"
+                bt.style.cssText='cursor: pointer';
+                document.getElementById("message").style.cssText='color:green; position:relative;top:13px;font-weight:bold;';
+                document.getElementById("message").innerHTML = " password matching";
+              }
+              else{
+                bt.disabled=true
+                bt.value=""
+                bt.style.cssText='background:#e33629;'
+                document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
+                document.getElementById("message").innerHTML = "Enter min. 4 digit password";
+               }  
+            } 
+            else {
+              bt.disabled=true
+              bt.value=""
+              bt.style.cssText='background:#e33629;'
+              document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
+              document.getElementById("message").innerHTML = "password not matching";
+            }
+          }
+        
+        
+        
+        
+        function closeAlert1() {
+          var customAlert = document.getElementById("customAlert");
+          customAlert.style.opacity = "0";
+          setTimeout(function() {
+              customAlert.style.display = "none";
+          }, 300);
+      }
+      
+      
+      window.onload = function() {
+        var showAlert = {% if show_otp %}true{% else %}false{% endif %};
+        if (showAlert) {
+            // Set a timeout to close the alert after 3 seconds
+            setTimeout(function() {
+                closeAlert();
+            }, 2500);
+        }
+      };
+        </script>
+        <script src=" {{ url_for('static',filename='js/main.js') }}"></script> 
+        <script src="../static/main.js"></script>
+        
+      </body>
 </html>

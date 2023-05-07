@@ -21,14 +21,79 @@
             <label for="login_type">Admin</label>
             <input type="radio" name="login_type" value="Employee" required>
             <label for="login_type">Employee</label>
-            <input type="submit" class="login_btn" name="submit" onclick="alert_msg()" value="Login" style="margin-top: 10px; font-size: large;cursor: pointer;">
-            <br><br><hr style="margin-bottom: 95px;">
-            
+            <br><br>
+            <input type="submit" class="btn" name="submit" onclick="alert_msg()" value="Login" >
+            <br><hr>
+            <a class="forget_account" href="forgot_account.html">Forgot Password</a>
+            <br>
+            <a class="btn" href="sign_up.html">SignUp</a>
         </div>
     </form>
+    
+    {% if show_alert %}
+    
+    <div id="customAlert" class="custom-alert">
+        <div class="custom-alert-content">
+            <span class="custom-alert-text">Password change succefull</span>
+            <button class="custom-alert-close" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+    {% endif %}
+ 
+ 
+    {% if show_wrong %}
+    <div id="customAlert" class="custom-alert">
+        <div class="custom-alert-content">
+          <span class="custom-alert-text">Wrong Credential</span>
+          <button class="custom-alert-close" onclick="closeAlert1()">OK</button>
+        </div>
+      </div>
+      {% endif %}
 
-    <a class="new_account" href="sign_up.html">SignUp</a>
-    <a class="forget_account" href="forgot_account.html">Forgot Password</a>
+ 
+      <script>
+        function closeAlert() {
+            var customAlert = document.getElementById("customAlert");
+            customAlert.style.opacity = "0";
+            setTimeout(function() {
+                customAlert.style.display = "none";
+            }, 300);
+        }
+        
+        
+        window.onload = function() {
+          var showAlert = {% if show_alert %}true{% else %}false{% endif %};
+          if (showAlert) {
+              // Set a timeout to close the alert after 3 seconds
+              setTimeout(function() {
+                  closeAlert();
+              }, 2500);
+          }};
+
+        
+            function closeAlert1() {    
+                var customAlert = document.getElementById("customAlert");
+                customAlert.style.opacity = "0";
+                setTimeout(function() {
+                    customAlert.style.display = "none";
+                }, 300);
+            }
+            
+            
+            window.onload = function() {
+              var showAlert = {% if show_wrong %}true{% else %}false{% endif %};
+              if (showAlert) {
+                  // Set a timeout to close the alert after 3 seconds
+                  setTimeout(function() {
+                      closeAlert1();
+                  }, 2500);
+              }
+            };
+    
+    </script>
+
+    <script src="../static/main.js"></script>
+    <script src=" {{url_for('static',filename='main.js')}}"></script> 
 
   
 </body>

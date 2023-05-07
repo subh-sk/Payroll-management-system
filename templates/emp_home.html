@@ -8,41 +8,50 @@
   <link  href="{{url_for('static',filename='style_me.css')}}" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <style>
-  .column {
-    float: left;
-    width: 33%;
-    height: 180px;
-    text-align: center;
-    box-shadow: 5px 10px 50px 10px white;
-  }
+    .column {
+      float: left;
+      width: 33.3%;
+      height: 180px;
+      text-align: center;
+      box-shadow: 5px 10px 50px 10px white;
+    }
+    .row{
+      margin-right: 0;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
   
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    
+    @media
+   (max-width: 767px){
+  .column{ 
+  width:100%;
+  margin-bottom:20px;}}
 </style>
 </head>
 <body>
   <header>
     <img src="../static/plogo.png ">
 </header>
-<nav class="navbar bg-body-tertiary fixed-top"style="width:0%; position: inherit;" >
-  <div class="container-fluid" style=" width:0; position: relative; left: 1400px; bottom: 60px;">
+<nav class="navbar bg-body-tertiary fixed-top"style="width:0%; position: inherit; float:right;">
+  <div class="container-fluid" style=" width:0; position: relative; right:90px; bottom: 60px;">
    
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header" style="background-color:  rgb(41, 37, 34);">
+      <div class="offcanvas-header" style="background-color:  rgb(41, 37, 34); text-align:center;">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight:bolder; color: aliceblue; font-size: xx-large;">Payroll System</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: aliceblue;"></button>
       </div>
-      <div class="offcanvas-body" style="background-color:  rgb(41, 37, 34);">
+      <div class="offcanvas-body" style="background-color:  rgb(41, 37, 34); text-align:center;">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="emp_home.html">My Account</a>
+            <a class="nav-link active" aria-current="page" href="emp_home.html" style="width:104.5%;">My Account</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="emp_leave.html">Leave</a>

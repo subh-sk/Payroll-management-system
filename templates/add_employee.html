@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width>, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../static/style_me.css">
     <link  href="{{url_for('static',filename='style_me.css')}}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <title>add employee</title>
     
@@ -14,24 +14,24 @@
   <header>
     <img src="../static/plogo.png ">
 </header>
-<nav class="navbar bg-body-tertiary fixed-top"style="width:0%; position: inherit;" >
-  <div class="container-fluid" style=" width:0; position: relative; left: 1400px; bottom: 60px;">
+<nav class="navbar bg-body-tertiary fixed-top"style="width:0%; position: inherit; float:right;">
+  <div class="container-fluid" style=" width:0; position: relative; right:90px; bottom: 60px;">
    
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header" style="background-color:  rgb(41, 37, 34);">
+      <div class="offcanvas-header" style="background-color:  rgb(41, 37, 34); text-align:center;">
         <h5 class="offcanvas-title" id="offcanvasNavbarLabel" style="font-weight:bolder; color: aliceblue; font-size: xx-large;">Payroll System</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="background-color: aliceblue;"></button>
       </div>
-      <div class="offcanvas-body" style="background-color:  rgb(41, 37, 34);">
+      <div class="offcanvas-body" style="background-color:  rgb(41, 37, 34); text-align:center;">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            <a class="nav-link active" aria-current="page" style="background-color: transparent;" href="home.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="add_employee.html">Add Employee</a>
+            <a class="nav-link" href="add_employee.html" style="width:104.5%; background-color: #ccc;">Add Employee</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="admin_emp_report.html">Employee Report</a>
@@ -56,7 +56,7 @@
       
 
 <form action="/add_employee" class="Form"  method="POST">
-            <div class="form">
+            <div class="form" style="max-width: 650px;">
             <h1 style="text-align: center;color: rgb(235, 108, 18);font-family:'Cooper Black';">ADD NEW EMPLOYEE</h1>
             
             <label for="fname" name="name"> Name</label>
@@ -95,35 +95,78 @@
             <label for="pass">Password</label>
             <input type="password" name="pass" id="pass" onkeyup="check();" placeholder="Password"><br>
             <p class="passreq">minium 4 digit required</p>
-
+            
             <label for="cpass">Confirm Password</label>
             <input type="password" name="cpass" id="cpass" onkeyup="check();" placeholder="Confirm-Password"><br>
             <span id="message" style="font-family: Georgia, 'Times New Roman', Times, serif;"></span><br><br><br>
-            <input type="submit" id="btSubmit" value="Add Employee" class="file_submit" onclick="alert_msg()" disabled>
+            <input type="submit" id="btSubmit" style="background-color: rgb(244, 38, 1);;" value="Add Employee" class="btn" onclick="alert_msg()" disabled>
           </div>
-</form>
-      <script>
-        function check() {
-           var bt = document.getElementById('btSubmit');
-           if (document.getElementById("pass").value == document.getElementById("cpass").value) 
-           {
-             bt.disabled=false
-             document.getElementById("btSubmit").style.cssText='background:#f06318;cursor: pointer;'
-             document.getElementById("message").style.cssText='color:green; position:relative;top:13px;font-weight:bold;';
-             document.getElementById("message").innerHTML = " password matching";
-           } else {
-             bt.disabled=true
-             document.getElementById("btSubmit").style.cssText='background:#e68957;'
-             document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
-             document.getElementById("message").innerHTML = "password not matching";
-           }
-         }
-       </script>
-<script>
-function alert_msg() {alert("EMPLOYEE ADDED")};
-</script>'
+        </form>
+        {% if show_alert %}
+        <div id="customAlert" class="custom-alert">
+            <div class="custom-alert-content">
+                <span class="custom-alert-text">Employee Added succefully</span>
+                <button class="custom-alert-close" onclick="closeAlert()">OK</button>
+            </div>
+        </div>
+        {% endif %}
+
+        <script src="../static/main.js"></script>
+        <script src=" {{url_for('static',filename='main.js')}}"></script> 
+        <script>
+    function check() {
+      var bt = document.getElementById('btSubmit');
+      const passValue = document.getElementById("pass").value.trim(); 
+      if (document.getElementById("pass").value == document.getElementById("cpass").value )
+      {
+        if(passValue.length >=4){
+          bt.disabled=false
+          bt.value="ADD EMPLOYEE"
+          bt.style.cssText='cursor: pointer';
+          document.getElementById("message").style.cssText='color:green; position:relative;top:13px;font-weight:bold;';
+          document.getElementById("message").innerHTML = " password matching";
+        }
+        else{
+          bt.disabled=true
+          bt.value=""
+          bt.style.cssText='background:#e33629;'
+          document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
+          document.getElementById("message").innerHTML = "Enter min. 4 digit password";
+         }  
+      } 
+      else {
+        bt.disabled=true
+        bt.value=""
+        bt.style.cssText='background:#e33629;'
+        document.getElementById("message").style.cssText='color:red; position:relative;top:13px;font-weight:bold;';
+        document.getElementById("message").innerHTML = "password not matching";
+      }
+    }
+  
+ 
+  
+  function closeAlert() {
+      var customAlert = document.getElementById("customAlert");
+      customAlert.style.opacity = "0";
+      setTimeout(function() {
+          customAlert.style.display = "none";
+      }, 300);
+  }
+  
+  
+  window.onload = function() {
+    var showAlert = {% if show_alert %}true{% else %}false{% endif %};
+    if (showAlert) {
+        // Set a timeout to close the alert after 3 seconds
+        setTimeout(function() {
+            closeAlert();
+        }, 2500);
+    }
+  };
+
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    
+
 </body>
 </html>

@@ -7,36 +7,35 @@ from datetime import datetime as dt
 import datetime
 import calendar
 from dateutil.relativedelta import relativedelta  #pip install python-dateutil
+from email.mime.text import MIMEText
 
-# conn=mysql.connect(host="localhost",user="root",passwd="",db="details")
-# c=conn.cursor()
 
-# create_table='''
-# CREATE TABLE IF NOT EXISTS info
-# (Fname text,Lname text,Gender text,Email text ,Password text);
-# '''
-# c.execute(create_table)
-# conn.commit()
-# conn.close()
 def otp_send(email):
     global otp
     otp=random.randint(1000,9999)
-    smp=smtplib.SMTP('smtp.gmail.com',587)  #587 is port no. of google
+    smp = smtplib.SMTP('smtp.gmail.com', 587)
     smp.starttls()
-    smp.login('ranikapayroll@gmail.com','hxgureqporkqkbbz')
-    msg=f"Hello {email}, Your OTP for account recovery = {otp}"
-    smp.sendmail("ranikapayroll@gmail.com",email,msg)
+    smp.login('payrollrecoverymail@gmail.com', 'qogaudzbcaoghlto')
+    msg_body = f"Hello {email}, Your OTP for account recovery = {otp}"
+    msg = MIMEText(msg_body)
+    msg['Subject'] = 'Account Recovery OTP'
+    msg['From'] = 'payrollrecoverymail@gmail.com'
+    msg['To'] = email
+    smp.sendmail("payrollrecoverymail@gmail.com", email, msg.as_string())
     smp.quit()
+
  
 wrong_credention_h6="<h6 style='color:red;position: relative;top:-185px;left:670px;width:11%; family-weight:bold; font-size:large;'>{}</h6>"
 wrong_credentioal_h6_1="<h6 style='color:red;position: relative;top:-75px;left:675px;width:11%; family-weight:bold; font-size:large;'>{}</h6>"
 
 
 # Flask constructor
-app = Flask(__name__)  
+app = Flask(__name__,static_url_path='/static')  
  
 # starting webpage
 @app.route('/', methods=['POST', 'GET'])
+def main_index():
+    return render_template("index.html")
 
 # home page of website
 @app.route("/home",methods=["POST","GET"])
@@ -116,9 +115,9 @@ def check():
             conn.commit()
             return render_template("home.html",total_emp=total_emp,total_active=total_active,total_deative=total_deative,total_leave=total_leave,total_emp_deative=total_emp_deative,total_emp_ative=total_emp_ative)
         else:
-            return render_template("index.html")+wrong_credention_h6.format("Wrong Credentioal")
+            return render_template("index.html",show_wrong=True)
      except:
-            return render_template("index.html")+wrong_credention_h6.format("Wrong Credentioal")
+            return render_template("index.html",show_wrong=True)
 
     else:
         c.execute("SELECT * FROM emp_detail where Email='{0}'".format(m_email))  
@@ -157,9 +156,9 @@ def check():
                 except:
                     return render_template("emp_home.html",to_send=total_emp_leave,total_emp_deative=total_emp_deative,total_emp_ative=total_emp_ative,last_salary=0,emp_allowance=0,emp_dedution=0)
             else:
-                return render_template("index.html")+wrong_credention_h6.format("Wrong Credentioal")
+                return render_template("index.html",show_wrong=True)
         except:
-            return render_template("index.html")+wrong_credention_h6.format("Wrong Credentioal1")
+            return render_template("index.html",show_wrong=True)
 
 # returing forget_account.html page
 @app.route("/forgot_account.html",methods=["POST","GET"])
@@ -185,9 +184,9 @@ def forgot_pass():
                 otp_send(email)
                 return render_template("forgot_pass.html")
             else:
-                return render_template("forgot_account.html")+wrong_credentioal_h6_1.format("Wrong Credentioal")
+                return render_template("forgot_account.html",show_alert=True)
         except:
-            return render_template("forgot_account.html")+wrong_credentioal_h6_1.format("Wrong Credentioal")
+            return render_template("forgot_account.html",show_alert=True)
     else:
         c.execute("SELECT * FROM emp_detail where Email='{}' and Mobile={}".format(email,mobile))  
         check_id=(c.fetchall())
@@ -196,9 +195,9 @@ def forgot_pass():
                 otp_send(mobile)
                 return render_template("forgot_pass.html")
             else:
-                return render_template("forgot_account.html")+wrong_credentioal_h6_1.format("Wrong Credentioal")
+                return render_template("forgot_account.html",show_alert=True)
         except:
-            return render_template("forgot_account.html")+wrong_credentioal_h6_1.format("Wrong Credentioal")
+            return render_template("forgot_account.html",show_alert=True)
 
 # login page after using forgot password
 @app.route("/login_again",methods=["POST","GET"])
@@ -212,13 +211,14 @@ def pass_changed():
         if login_type=="Admin": 
             c.execute("update admin_detail set `Password`='{}'  where Email='{}'".format(password,email_check))
             conn.commit()
-            return render_template("index.html")+"<h6 style='color:green;position: relative;top:-445px;left:320px; family-weight:bold; font-size:large;'>Password Changed Succefull</h6>"
+            return render_template("index.html",show_alert=True)
         else:
             c.execute("update emp_detail set `Password`='{}' where Email='{}'".format(password,email_check))
             conn.commit()
-            return render_template("index.html")+"<h6 style='color:green;position: relative;top:-445px;left:320px; family-weight:bold; font-size:large;'>Password Changed Succefull</h6>"
+            return render_template("index.html",show_alert=True)
     else:
-        return render_template("forgot_pass.html")+"<h6 style='color:red;position: relative;top:-350px;left:575px; family-weight:bold; font-size:large;'>Wrong OTP</h6>"
+        return render_template("forgot_pass.html",show_otp=True)
+        # return render_template("forgot_pass.html")+'<h6>wr</h6><script>function alert_msg() {alert("Wrong OTP")};</script>'
 
 # signup page
 @app.route("/sign_up.html",methods=["POST","GET"])
@@ -238,8 +238,7 @@ def result():
     c.execute("INSERT INTO admin_detail values('{} {}','{}','{}','{}')".format(fname,lname,mobile,email,password))
     conn.commit()
     conn.close()
-    return render_template("index.html")+"<h6 style='color:green;position: relative;top:-445px;left:320px; family-weight:bold; font-size:large;'>SignUP succesfull</h6>"
-
+    return render_template("index.html")
 #add employee page 
 @app.route("/add_employee",methods=["POST","GET"])
 def add_emp():
@@ -262,7 +261,7 @@ def add_emp():
     c.execute("INSERT INTO emp_detail (`Name`, `Address`, `City`, `Pincode`, `Mobile`, `Degree`, `Designation`, `Salary`, `Bank_no`, `Email`, `Password`,`Branch`) VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')".format(name,address,city,pincode,mobile,degree,designation,salary,bank_account, email,password,branch))
     conn.commit()
     conn.close()
-    return render_template("add_employee.html")
+    return render_template("add_employee.html",show_alert=True)
 
 # returning add_empolyee.html page
 @app.route("/add_employee.html",methods=["POST","GET"])
@@ -398,7 +397,7 @@ def admin_leave_report1():
     c.execute(f"select * from emp_report where  Name='{name}' and Year='{year}' and Month='{month}' ")
     emp_salary=c.fetchall()
     if len(emp_salary)==0:
-        return render_template("admin_leave_report.html")+'<script> alert("NO RECORDS");</script>'
+        return render_template("admin_leave_report.html",show_alert=True)
     table_name=["Name","Email","Leave Day","Date","Reason","Status","Approve"]
     emp_salary=[j for i in emp_salary for j in i]
     # x=dict(table_name,emp_salary)
@@ -416,7 +415,7 @@ def admin_emp_report1():
     c.execute(f"select * from emp_detail where Email='{email}' and Name='{name}' ")
     emp_salary=c.fetchall()
     if len(emp_salary)==0:
-        return render_template("admin_emp_report.html")+'<script> alert("NO RECORDS");</script>'
+        return render_template("admin_emp_report.html",show_alert=True)
     table_name=["Name","Address","City","Pincode","Mobile","Degree","Designation","Salary","Bank no","Email","Password","Status","Branch","Empid"]
     emp_salary=[j for i in emp_salary for j in i]
     # x=dict(table_name,emp_salary)
@@ -435,7 +434,7 @@ def emp_salary_report1():
     c.execute(f"select * from salary where Email='{m_email}' and Month='{month}' and Year='{year}'")
     emp_salary=c.fetchall()
     if len(emp_salary)==0:
-        return render_template("emp_salary_report.html")+'<script> alert("NO RECORDS");</script>'
+        return render_template("emp_salary_report.html",show_alert=True)
     table_name=["Name","Email","Allowance","Deduction","Total Salary","Month","Year","Status"]
     emp_salary=[j for i in emp_salary for j in i]
     # x=dict(table_name,emp_salary)
@@ -454,7 +453,7 @@ def admin_salary_report1():
     c.execute(f"select * from salary where Name='{name}' and Month='{month}' and Year='{year}'")
     emp_salary=c.fetchall()
     if len(emp_salary)==0:
-        return render_template("admin_salary_report.html")+'<script> alert("NO RECORDS");</script>'
+        return render_template("admin_salary_report.html",show_alert=True)
     table_name=["Name","Email","Allowance","Deduction","Total Salary","Month","Year","Status"]
     emp_salary=[j for i in emp_salary for j in i]
     # x=dict(table_name,emp_salary)
@@ -475,9 +474,9 @@ def emp_pass_cng():
     if len(check)==1:
         c.execute("UPDATE emp_detail SET Password='{}' WHERE Email='{}'".format(new_pass,email))
         conn.commit()
-        return render_template("emp_pass_change.html")+"<h6 style='color:green;position: relative;top:-460px;left:650px;family-weight:bold; font-size:large;width:20%;'>Password Changed Succefully</h6>"
+        return render_template("emp_pass_change.html",show_alert=True)
     else:
-        return render_template("emp_pass_change.html")+"<h6 style='color:red;position: relative;top:-90px;left:675px;width:11%; family-weight:bold; font-size:large;'>Wrong Credentioal</h6>"
+        return render_template("emp_pass_change.html",show_wrong=True)
 
 # admin password change 
 @app.route("/admin_pass_cng",methods=["POST","GET"])
@@ -493,9 +492,9 @@ def admin_pass_cng():
     if len(check)==1:
         c.execute("UPDATE emp_detail SET Password='{}' WHERE Email='{}'".format(new_pass,email))
         conn.commit()
-        return render_template("admin_pass_change.html")+"<h6 style='color:green;position: relative;top:-460px;left:650px;family-weight:bold; font-size:large;width:20%;'>Password Changed Succefully</h6>"
+        return render_template("admin_pass_change.html",show_alert=True)
     else:
-        return render_template("admin_pass_change.html")+"<h6 style='color:red;position: relative;top:-90px;left:675px;width:11%; family-weight:bold; font-size:large;'>Wrong Credentioal</h6>"
+        return render_template("admin_pass_change.html",show_wrong=True)
 
 # employee leave application
 @app.route("/leave_application",methods=["POST","GET"])
