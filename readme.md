@@ -1,4 +1,4 @@
-# Start
+# Payroll Management System
 ## We need some software for setup our local database. 
 1. We need to download xammp application and install it on your system
 2. Open the xammp application and start Apache and MYSQL service
