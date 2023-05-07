@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SIGN UP</title>
+        <link rel="stylesheet" href="../static/style_me.css">
+        <link  href="{{url_for('static',filename='style_me.css')}}" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    </head>
+<body>
+    <!-- <header style="padding-left: 2px;"> -->
+      <header>
+        <img src="../static/plogo.png ">
+    </header>
+
+    <form action="/sign_up" class="Form"  method="POST">
+        <div class="form">
+            <h1 style="text-align: center;color: rgb(235, 108, 18);font-family:'Cooper Black';">SIGN UP</h1>
+            <p style="font-weight: bold;">Please fill in the form to create an account.</p><hr color="green">
+            <label for="fname" ><b>First Name : </b></label><br>
+            <input type="text" name="fname" id="fname" placeholder="Enter First Name" required>
+            <label for="lname"><b>Last Name : </b></label><br>
+            <input type="text" name="lname" id="lname" placeholder="Enter Last Name" required>
+            <label for="mob_number"><b>Mobile Number : </b></label><br>
+            <input type="text" name="mob_number" id="mob_number" placeholder="Mobile Number" required>
+            <label for="email"><b>Email : </b></label><br>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <label for="pass"><b>Password: </b>
+            <input type="password" name="pass" id="pass" onkeyup="check();"  placeholder="Password" required minlength="4">
+            <p class="passreq">minium 4 digit required</p>
+            <label for="cpass"><b>Confirm Password : </b></label><br>
+            <input type="password" name="cpass" id="cpass" onkeyup="check();" placeholder="Confirm Password" required minlength="4">
+            <span id="message" style="font-family: Georgia, 'Times New Roman', Times, serif;"></span><br><br><br>
+            <input type="submit" id="btSubmit" value="SIGN UP" class="btn btn" onclick="alert_msg()"  disabled>
+        </div>
+    </form>
+    <script src="../static/main.js"></script>
+    <script src=" {{url_for('static',filename='main.js')}}"></script> 
+
+    <script>
+      function alert_msg() {alert("Sigup Succesfull")};
+      </script>
+</body>
+</html>
