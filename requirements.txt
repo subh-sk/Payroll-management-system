@@ -1,5 +1,5 @@
 # Run the requirements.txt in terminal/cmd = pip install -r requirements.txt
 
-mysql.connector
+mysql-connector-python
 flask
 python-dateutil
