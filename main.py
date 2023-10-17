@@ -8,7 +8,7 @@ import datetime
 import calendar
 from dateutil.relativedelta import relativedelta  #pip install python-dateutil
 from email.mime.text import MIMEText
-
+import time
 
 def otp_send(email):
     global otp
